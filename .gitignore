@@ -1,0 +1,10 @@
+.idea/
+storage
+
+#./uploads
+#uploads/*
+/tmp
+
+tmp/*
+.env
+cmd/http/storage/*
