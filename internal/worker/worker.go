@@ -2,6 +2,7 @@ package worker
 
 import (
 	"api_shop/config"
+	"api_shop/internal/tasks"
 	"fmt"
 	"log"
 
@@ -9,14 +10,14 @@ import (
 )
 
 // todo: get from config
-const redisAddr = "127.0.0.1:6379"
+const RedisAddr = "127.0.0.1:6379"
 
 func StartWorker() {
 
 	config.Load("worker")
 
 	srv := asynq.NewServer(
-		asynq.RedisClientOpt{Addr: redisAddr},
+		asynq.RedisClientOpt{Addr: RedisAddr},
 		asynq.Config{
 			// Specify how many concurrent workers to use
 			Concurrency: 10,
@@ -26,15 +27,13 @@ func StartWorker() {
 				"default":  3,
 				"low":      1,
 			},
-			// See the godoc for other configuration options
 		},
 	)
 
 	// mux maps a type to a handler
 	mux := asynq.NewServeMux()
-	//mux.HandleFunc(tasks.TypeEmailDelivery, tasks.HandleEmailDeliveryTask)
-	//mux.Handle(tasks.TypeImageResize, tasks.NewImageProcessor())
-	// ...register other handlers...
+
+	mux.HandleFunc(tasks.TypeEmailDeliveryTask, tasks.HandleEmailDeliveryTask)
 
 	fmt.Println("worker started ")
 	if err := srv.Run(mux); err != nil {
