@@ -23,7 +23,7 @@ func Load(path string) {
 			log.Fatalln("path is empty")
 		}
 
-		if path == "http_request" {
+		if path == "http_request" || path == "worker" {
 			getwd, err := os.Getwd()
 			if err != nil {
 				log.Fatalln("error getting current working directory :", err)

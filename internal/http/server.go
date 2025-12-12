@@ -1,4 +1,4 @@
-package main
+package http
 
 import (
 	"api_shop/config"
@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func StartServer() {
 
 	config.Load("http_request")
 
