@@ -1,0 +1,20 @@
+{{define "pages"}}
+
+<h1>pages template</h1>
+
+{{.users}}
+
+
+<form action="create" method="post">
+    <input type="hidden" name="csrf_token" value="{{.csrf}}">
+
+    <input type="text" name="name" placeholder="enter your name ">
+
+    <input type="submit" value="save">
+
+</form>
+
+<h4>csrf token</h4>
+{{.csrf}}
+
+{{end}}
